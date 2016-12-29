@@ -1,36 +1,20 @@
-package com.beetutors.helper;
+package com.beetutors.until;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.beetutors.R;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.app.ProgressDialog.STYLE_SPINNER;
 
 /**
  * Created by TruyenLT1 on 2016/12/23.

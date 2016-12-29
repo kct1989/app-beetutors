@@ -14,11 +14,11 @@ public class ConfigAppBase extends Application
     @Override
     public void onCreate() {
         super.onCreate();
-        Authenticator.setDefault(new Authenticator() {
+        /*Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("TruyenLT1", "$abcd1234".toCharArray());
+                return new PasswordAuthentication("Username", "password".toCharArray());
             }
-        });
+        });*/
     }
 }

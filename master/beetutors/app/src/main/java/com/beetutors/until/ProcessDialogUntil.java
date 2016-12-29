@@ -1,4 +1,4 @@
-package com.beetutors.activity;
+package com.beetutors.until;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,7 +18,7 @@ public class ProcessDialogUntil {
 
     Context context;
 
-    ProcessDialogUntil(Context context) {
+    public ProcessDialogUntil(Context context) {
         this.context = context;
     }
 
