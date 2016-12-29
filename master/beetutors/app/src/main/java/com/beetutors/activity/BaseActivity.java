@@ -33,13 +33,13 @@ public class BaseActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setTheme(R.style.AppThemeFull);
-        networkUtils = new NetworkUtils();
+        networkUtils = new NetworkUtils(this);
     }
 
+    //Todo
     public boolean isNetwork() {
-        if (networkUtils.isConnected(this)) {
+        if (networkUtils.isWifiConnected(this) && networkUtils.isNetworkAvailable(this)) {
             return true;
-
         } else {
             Toast.makeText(this, "Not connect internet", Toast.LENGTH_LONG).show();
             return false;

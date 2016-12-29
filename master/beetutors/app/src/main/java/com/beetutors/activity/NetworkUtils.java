@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
@@ -13,40 +14,40 @@ import android.support.annotation.NonNull;
  */
 
 public class NetworkUtils {
-    public static boolean isConnected(@NonNull Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+    Context context;
+
+    public NetworkUtils(@NonNull Context context) {
+        this.context = context;
     }
 
     public static boolean isWifiConnected(@NonNull Context context) {
-        return isConnected(context, ConnectivityManager.TYPE_WIFI);
+        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if (wifi.isWifiEnabled()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public static boolean isMobileConnected(@NonNull Context context) {
-        return isConnected(context, ConnectivityManager.TYPE_MOBILE);
-    }
+    /**
+     * check api <5.0 and >5.0
+     */
 
-    private static boolean isConnected(@NonNull Context context, int type) {
+    public static boolean isNetworkAvailable(@NonNull Context context) {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            NetworkInfo networkInfo = connMgr.getNetworkInfo(type);
+            NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             return networkInfo != null && networkInfo.isConnected();
         } else {
-            return isConnected(connMgr, type);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private static boolean isConnected(@NonNull ConnectivityManager connMgr, int type) {
-        Network[] networks = connMgr.getAllNetworks();
-        NetworkInfo networkInfo;
-        for (Network mNetwork : networks) {
-            networkInfo = connMgr.getNetworkInfo(mNetwork);
-            if (networkInfo != null && networkInfo.getType() == type && networkInfo.isConnected()) {
-                return true;
+            Network[] networks = connMgr.getAllNetworks();
+            NetworkInfo networkInfo;
+            for (Network mNetwork : networks) {
+                networkInfo = connMgr.getNetworkInfo(mNetwork);
+                if (networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI && networkInfo.isConnected()) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
 }
